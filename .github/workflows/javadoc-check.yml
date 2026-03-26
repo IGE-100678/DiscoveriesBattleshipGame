@@ -1,0 +1,27 @@
+name: Javadoc Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  javadoc:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Generate Javadoc
+      run: mvn javadoc:javadoc
+    - name: Check Javadoc generation
+      run: |
+        if [ ! -f "docs/index.html" ]; then
+          echo "❌ Javadoc failed to generate"
+          exit 1
+        fi
+        echo "✅ Javadoc generated successfully"
