@@ -1,5 +1,18 @@
 /**
+ * Representa o estado e lógica central de uma partida de Batalha Naval.
  *
+ * Gerencia a frota do jogador, processa tiros disparados, mantém estatísticas
+ * de jogo (tiros válidos/inválidos, repetidos, acertos, navios afundados) e
+ * fornece métodos para visualização dos tabuleiros.
+ *
+ * Implementa a interface {@link IGame} e usa uma {@link IFleet} para gerir
+ * os navios posicionados na grelha 10x10.
+ *
+ * @author fba
+ * @author Martim Reis (IGE-111245) - Javadoc Ficha 1
+ * @version 2.0
+ * @see IGame
+ * @see IFleet
  */
 package iscteiul.ista.battleship;
 
@@ -19,9 +32,13 @@ public class Game implements IGame {
     private Integer countHits;
     private Integer countSinks;
 
-
     /**
-     * @param fleet
+     * Construtor da classe Game.
+     *
+     * Inicializa uma nova partida com a frota especificada, lista de tiros
+     * vazia e contadores de estatísticas zerados.
+     *
+     * @param fleet a frota do jogador que será usada nesta partida
      */
     public Game(IFleet fleet) {
         shots = new ArrayList<>();
@@ -30,10 +47,15 @@ public class Game implements IGame {
         this.fleet = fleet;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Dispara um tiro numa posição específica da grelha adversária.
      *
-     * @see battleship.IGame#fire(battleship.IPosition)
+     * Valida se a posição é válida (0-9), se já foi disparada anteriormente,
+     * processa o acerto no navio se houver um e atualiza estatísticas. Retorna
+     * o navio afundado se o tiro o tiver afundado, ou null caso contrário.
+     *
+     * @param pos posição onde disparar o tiro (linha, coluna)
+     * @return o navio afundado por este tiro, ou null se não afundou nenhum
      */
     @Override
     public IShip fire(IPosition pos) {
@@ -58,60 +80,60 @@ public class Game implements IGame {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Retorna todas as posições onde foram disparados tiros válidos.
      *
-     * @see battleship.IGame#getShots()
+     * @return lista imutável de posições de tiros válidos disparados
      */
     @Override
     public List<IPosition> getShots() {
         return shots;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Conta o número de tiros repetidos (mesma posição disparada várias vezes).
      *
-     * @see battleship.IGame#getRepeatedShots()
+     * @return número de tiros repetidos na partida atual
      */
     @Override
     public int getRepeatedShots() {
         return this.countRepeatedShots;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Conta o número de tiros inválidos (coordenadas fora da grelha 0-9).
      *
-     * @see battleship.IGame#getInvalidShots()
+     * @return número de tiros inválidos disparados
      */
     @Override
     public int getInvalidShots() {
         return this.countInvalidShots;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Conta o número total de acertos em navios.
      *
-     * @see battleship.IGame#getHits()
+     * @return número de tiros que acertaram em navios
      */
     @Override
     public int getHits() {
         return this.countHits;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Conta o número de navios afundados nesta partida.
      *
-     * @see battleship.IGame#getSunkShips()
+     * @return número de navios completamente afundados
      */
     @Override
     public int getSunkShips() {
         return this.countSinks;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Conta quantos navios ainda estão a flutuar (não afundados).
      *
-     * @see battleship.IGame#getRemainingShips()
+     * @return número de navios ainda ativos na frota
      */
     @Override
     public int getRemainingShips() {
@@ -119,11 +141,23 @@ public class Game implements IGame {
         return floatingShips.size();
     }
 
+    /**
+     * Verifica se uma posição está dentro dos limites da grelha.
+     *
+     * @param pos posição a validar
+     * @return true se linha e coluna estão entre 0 e 9, inclusive
+     */
     private boolean validShot(IPosition pos) {
-        return (pos.getRow() >= 0 && pos.getRow() <= Fleet.BOARD_SIZE && pos.getColumn() >= 0
-                && pos.getColumn() <= Fleet.BOARD_SIZE);
+        return (pos.getRow() >= 0 && pos.getRow() <= Fleet.BOARD_SIZE &&
+                pos.getColumn() >= 0 && pos.getColumn() <= Fleet.BOARD_SIZE);
     }
 
+    /**
+     * Verifica se já foi disparado um tiro nessa posição anteriormente.
+     *
+     * @param pos posição a verificar
+     * @return true se já existe tiro nessa posição na lista
+     */
     private boolean repeatedShot(IPosition pos) {
         for (int i = 0; i < shots.size(); i++)
             if (shots.get(i).equals(pos))
@@ -131,7 +165,12 @@ public class Game implements IGame {
         return false;
     }
 
-
+    /**
+     * Imprime um tabuleiro mostrando posições específicas com um marcador.
+     *
+     * @param positions lista de posições a marcar no tabuleiro
+     * @param marker caractere a usar para marcar as posições
+     */
     public void printBoard(List<IPosition> positions, Character marker) {
         char[][] map = new char[Fleet.BOARD_SIZE][Fleet.BOARD_SIZE];
 
@@ -147,20 +186,19 @@ public class Game implements IGame {
                 System.out.print(map[row][col]);
             System.out.println();
         }
-
     }
 
-
     /**
-     * Prints the board showing valid shots that have been fired
+     * Imprime o tabuleiro mostrando apenas os tiros válidos disparados.
+     * Usa 'X' para marcar posições onde foram dados tiros válidos.
      */
     public void printValidShots() {
         printBoard(getShots(), 'X');
     }
 
-
     /**
-     * Prints the board showing the fleet
+     * Imprime o tabuleiro mostrando a posição de todos os navios da frota.
+     * Usa '#' para marcar as posições ocupadas por navios.
      */
     public void printFleet() {
         List<IPosition> shipPositions = new ArrayList<IPosition>();
@@ -170,5 +208,4 @@ public class Game implements IGame {
 
         printBoard(shipPositions, '#');
     }
-
 }
