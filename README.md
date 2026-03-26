@@ -6,12 +6,12 @@ Projeto desenvolvido no âmbito da unidade curricular **Engenharia de Software**
 
 ## 👥 Equipa
 
-| Curso            | Nº Aluno | Nome                 | GitHub           |
-|------------------|---------:|--------------------- |------------------|
-| IGE / IGE‑PL     | 111245   | Martim Saldanha Reis | @IGE-111245      |
-| IGE / IGE‑PL     | 111245   | Martim Saldanha Reis | @martimsdreis    |
-| IGE / IGE‑PL     | 100678   | Gonçalo Nunes        | @IGE-100678     |
-| IGE / IGE‑PL     | 444444   | Colega 4 (opcional) | @IGE-444444     |
+| Curso        | Nº Aluno | Nome                 | GitHub          |
+|--------------|---------:|----------------------|-----------------|
+| IGE / IGE‑PL |   111245 | Martim Saldanha Reis | @IGE-111245     |
+| IGE / IGE‑PL |   111245 | Martim Saldanha Reis | @martimsdreis   |
+| IGE / IGE‑PL |   100678 | Gonçalo Nunes        | @IGE-100678     |
+| LEI          |    99371 | Pedro Angelino       | @PedroAngelino  |
 
 > Substituir números, nomes e handles GitHub pelos reais do grupo.
 
