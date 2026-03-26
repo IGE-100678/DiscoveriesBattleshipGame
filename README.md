@@ -10,7 +10,7 @@ Projeto desenvolvido no âmbito da unidade curricular **Engenharia de Software**
 |------------------|---------:|--------------------- |------------------|
 | IGE / IGE‑PL     | 111245   | Martim Saldanha Reis | @IGE-111245      |
 | IGE / IGE‑PL     | 111245   | Martim Saldanha Reis | @martimsdreis    |
-| IGE / IGE‑PL     | 333333   | Colega 3            | @IGE-333333     |
+| IGE / IGE‑PL     | 100678   | Gonçalo Nunes        | @IGE-100678     |
 | IGE / IGE‑PL     | 444444   | Colega 4 (opcional) | @IGE-444444     |
 
 > Substituir números, nomes e handles GitHub pelos reais do grupo.
